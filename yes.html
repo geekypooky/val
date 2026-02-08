@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Boy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Syne:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #fbe7ef;
+            --accent: #ff79a8;
+            --ink: #44172c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Syne', sans-serif;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.45), transparent 45%),
+                radial-gradient(circle at 85% 25%, rgba(255, 214, 229, 0.65), transparent 55%),
+                linear-gradient(130deg, #ffe0f0, #f7c4e2 45%, #ffe9f3);
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1.5rem, 5vw, 3rem);
+        }
+
+        .canvas {
+            width: min(1100px, 100%);
+            background: rgba(255, 255, 255, 0.84);
+            border-radius: 36px;
+            border: 1px solid rgba(255, 188, 213, 0.7);
+            padding: clamp(2rem, 6vw, 3.5rem);
+            box-shadow: 0 35px 90px rgba(255, 122, 175, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .canvas::after,
+        .canvas::before {
+            content: '❤';
+            position: absolute;
+            font-size: 6rem;
+            color: rgba(255, 121, 168, 0.15);
+            animation: float 12s linear infinite;
+        }
+
+        .canvas::after {
+            top: 8%;
+            right: 6%;
+        }
+
+        .canvas::before {
+            bottom: 4%;
+            left: 8%;
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-30px); }
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 0.35em;
+            font-size: 0.75rem;
+            color: #f25f95;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 4.5rem);
+            line-height: 1;
+            color: var(--ink);
+            text-transform: lowercase;
+        }
+
+        .script-note {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--accent);
+            margin-top: 0.5rem;
+        }
+
+        .copy {
+            margin-top: 1.5rem;
+            max-width: 620px;
+            font-size: 1.05rem;
+            color: rgba(68, 23, 44, 0.82);
+        }
+
+        .soft-note {
+            margin-top: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.55rem 1.1rem;
+            border-radius: 999px;
+            background: rgba(255, 244, 248, 0.92);
+            border: 1px dashed rgba(255, 137, 184, 0.55);
+            font-size: 0.9rem;
+            color: rgba(68, 23, 44, 0.7);
+        }
+
+        .gallery {
+            margin-top: 2.8rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.8rem;
+            position: relative;
+            isolation: isolate;
+        }
+
+        @keyframes bob {
+            0% { transform: translateY(var(--start-y)) rotate(var(--tilt)); }
+            50% { transform: translateY(calc(var(--start-y) - 10px)) rotate(calc(var(--tilt) * 0.7)); }
+            100% { transform: translateY(var(--start-y)) rotate(var(--tilt)); }
+        }
+
+        .card {
+            --start-y: 0px;
+            --tilt: 0deg;
+            background:
+                repeating-linear-gradient(
+                    180deg,
+                    rgba(255, 255, 255, 0) 0,
+                    rgba(255, 255, 255, 0) 32px,
+                    rgba(255, 204, 223, 0.5) 32px,
+                    rgba(255, 204, 223, 0.5) 34px
+                ),
+                #fff9fd;
+            border-radius: 36px;
+            padding: 2.2rem;
+            border: 1px solid rgba(255, 189, 214, 0.8);
+            box-shadow: 0 22px 50px rgba(255, 125, 175, 0.2);
+            position: relative;
+            overflow: hidden;
+            transform-origin: center top;
+            transform: translateY(var(--start-y)) rotate(var(--tilt));
+            animation: bob 6s ease-in-out infinite;
+            filter: drop-shadow(0 12px 25px rgba(255, 126, 183, 0.25));
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 18px;
+            width: 74px;
+            height: 28px;
+            background: rgba(255, 244, 247, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            transform: rotate(-6deg);
+        }
+
+        .card::after {
+            content: '💌';
+            position: absolute;
+            top: 10px;
+            right: 16px;
+            opacity: 0.7;
+            font-size: 1.7rem;
+        }
+
+        .card:nth-child(1) {
+            --tilt: -5deg;
+            --start-y: 6px;
+            animation-delay: -0.4s;
+        }
+
+        .card:nth-child(2) {
+            --tilt: 4deg;
+            --start-y: -6px;
+            animation-delay: -1.2s;
+        }
+
+        .card:nth-child(3) {
+            --tilt: -3deg;
+            --start-y: 4px;
+            animation-delay: -0.8s;
+        }
+
+        .card:hover {
+            animation-play-state: paused;
+            transform: translateY(calc(var(--start-y) - 6px)) rotate(0deg);
+        }
+
+        .letter-tag {
+            font-size: 0.85rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: rgba(68, 23, 44, 0.62);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 20px;
+            border: 2px dashed rgba(255, 155, 188, 0.75);
+            object-fit: cover;
+            aspect-ratio: 6 / 5;
+            margin-top: 1.4rem;
+        }
+
+        .card p {
+            margin-top: 1.15rem;
+            font-size: 1.08rem;
+            color: rgba(68, 23, 44, 0.8);
+        }
+
+        .cta {
+            margin-top: 2.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.8rem;
+            border-radius: 999px;
+            background: linear-gradient(125deg, #ff8ab7, #ffc2d9);
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 20px 45px rgba(255, 126, 183, 0.35);
+            transition: transform 0.2s ease;
+        }
+
+        .cta:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <main class="canvas">
+        <p class="eyebrow">mission accomplished</p>
+        <h1>good boy</h1>
+        <p class="script-note">Hearts secured, vibes immaculate.</p>
+        <p class="copy">Your yes unlocked the soft launch lounge. Triple heart energy, zero takebacks. Keep basking or hop back to spread more sparkles.</p>
+        <p class="soft-note" aria-live="polite">✨ Tiny reminder: you're the plot twist my heart was waiting for.</p>
+
+        <section class="gallery" aria-label="Gallery of heart moments">
+            <article class="card">
+                <span class="letter-tag">note i</span>
+                <img src="p.jpeg" alt="Pink heart shaped candies in a bowl">
+                <p>I will trade anything , to look at you like this everyday .</p>
+            </article>
+            <article class="card">
+                <span class="letter-tag">note ii</span>
+                <img src="o.jpeg" alt="Hand holding glowing paper hearts">
+                <p>ipduye iruntena valka nalairukum hehehehhehehehhehehhehe , nee vandhu en kothadimai.</p>
+            </article>
+            <article class="card">
+                <span class="letter-tag">note iii</span>
+                <img src="j.jpeg" alt="Floating heart balloons with neon glow">
+                <p>Hmm sorry , i should know to let you have space and stuff, and also i just tbh dont feel genuinely happy , i do feel happy with others unta matum than i could be feelin like home , but yea i barely have anything in my life , therla i thought i should be same but we are diff people no marante aduve , so yea sorry i better try not to interfere things hehe , i will be just your gf for now , nothing more nothing less, no more overthinking and stuff ! ily
+                    .</p>
+            </article>
+        </section>
+
+        <a class="cta" href="hi.html" aria-label="Return to the main invite">Back to the invite</a>
+    </main>
+</body>
+</html>

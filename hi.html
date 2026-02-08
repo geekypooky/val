@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Valentine Invite</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			color-scheme: light;
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: 'Playfair Display', serif;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			background-image:
+				linear-gradient(140deg, rgba(255, 183, 197, 0.35), rgba(240, 211, 255, 0.25)),
+				url('https://i.pinimg.com/originals/96/05/f8/9605f853d5d590bca1da335472b807d9.gif');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			padding: 2rem;
+			color: #432335;
+		}
+
+		.panel {
+			width: min(480px, 100%);
+			background: rgba(255, 255, 255, 0.2);
+			backdrop-filter: blur(3px);
+			border: 1px solid rgba(255, 205, 224, 0.7);
+			border-radius: 28px;
+			padding: 2.5rem 2rem;
+			box-shadow: 0 20px 55px rgba(255, 133, 194, 0.25);
+		}
+
+		.eyebrow {
+			font-family: 'Space Grotesk', sans-serif;
+			text-transform: uppercase;
+			letter-spacing: 0.3em;
+			font-size: 0.8rem;
+			margin-bottom: 1rem;
+			color: #ff74ac;
+		}
+
+		h1 {
+			font-size: clamp(2.5rem, 6vw, 3.5rem);
+			line-height: 1.1;
+			margin-bottom: 1rem;
+		}
+
+		.note {
+			font-family: 'Space Grotesk', sans-serif;
+			font-size: 1rem;
+			color: rgba(67, 35, 53, 0.7);
+			margin-bottom: 2rem;
+		}
+
+		.choices {
+			display: flex;
+			gap: 1rem;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+
+		button {
+			flex: 1 1 120px;
+			border: none;
+			border-radius: 999px;
+			padding: 0.9rem 1.6rem;
+			font-size: 1rem;
+			font-family: 'Space Grotesk', sans-serif;
+			cursor: pointer;
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.yes {
+			background: linear-gradient(135deg, #ff9ac5, #ffd7e5);
+			color: #5b1530;
+			box-shadow: 0 10px 24px rgba(255, 154, 197, 0.45);
+		}
+
+		.no {
+			background: rgba(255, 255, 255, 0.65);
+			color: #8b3c5e;
+			border: 1px solid rgba(255, 187, 210, 0.9);
+		}
+
+		button:hover {
+			transform: translateY(-2px);
+		}
+
+		.response {
+			font-family: 'Space Grotesk', sans-serif;
+			margin-top: 2rem;
+			font-size: 1.1rem;
+			min-height: 1.2em;
+			color: #e35d9b;
+		}
+
+		@keyframes float-hearts {
+			0% { transform: translateY(0) scale(1); opacity: 0; }
+			30% { opacity: 1; }
+			100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+		}
+
+		.panel::after {
+			content: '♬';
+			position: absolute;
+			font-size: 5rem;
+			color: rgba(255, 138, 176, 0.15);
+			top: -20px;
+			right: 20px;
+			animation: float-hearts 5s linear infinite;
+		}
+
+		.panel {
+			position: relative;
+			overflow: hidden;
+		}
+
+		@media (max-width: 480px) {
+			.panel {
+				padding: 2rem 1.4rem;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="panel">
+		<div class="eyebrow">valentine special</div>
+		<h1>Will you be my Valentine?</h1>
+		<p class="note">Pick an answer, but remember: the soundtrack only hits right with you.</p>
+		<div class="choices">
+			<button class="yes">Yes</button>
+			<button class="no">No</button>
+		</div>
+		<div class="response" id="response"></div>
+	</div>
+
+	<script>
+		const yesBtn = document.querySelector('.yes');
+		const noBtn = document.querySelector('.no');
+		const response = document.getElementById('response');
+		let soundtrackStarted = false;
+
+		const startSoundtrack = () => {
+			if (soundtrackStarted) return;
+			soundtrackStarted = true;
+			const iframe = document.createElement('iframe');
+			iframe.title = 'Valentine soundtrack';
+			iframe.className = 'bg-audio';
+			iframe.width = 0;
+			iframe.height = 0;
+			iframe.style.position = 'absolute';
+			iframe.style.opacity = '0';
+			iframe.style.pointerEvents = 'none';
+			const params = new URLSearchParams({
+				autoplay: '1',
+				loop: '1',
+				playlist: '5XbREz0B37k',
+				controls: '0',
+				modestbranding: '1',
+				playsinline: '1'
+			});
+			iframe.src = `<iframe width="560" height="315" src="https://www.youtube.com/embed/5XbREz0B37k?si=7p8ch_UbUOH0zIQ5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+			iframe.allow = 'autoplay; encrypted-media';
+			iframe.setAttribute('allow', 'autoplay; encrypted-media');
+			iframe.setAttribute('allowfullscreen', '');
+			iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+			document.body.appendChild(iframe);
+		};
+
+		document.addEventListener('pointerdown', startSoundtrack, { once: true });
+
+		yesBtn.addEventListener('click', () => {
+			startSoundtrack();
+			window.location.href = 'yes.html';
+		});
+
+		noBtn.addEventListener('mouseover', () => {
+			// Gently dodge the cursor to keep the vibe playful
+			const offsetX = (Math.random() - 0.5) * 200;
+			const offsetY = (Math.random() - 0.5) * 120;
+			noBtn.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+		});
+
+		noBtn.addEventListener('mouseout', () => {
+			noBtn.style.transform = 'translate(0, 0)';
+		});
+
+		noBtn.addEventListener('click', () => {
+			startSoundtrack();
+			window.location.href = 'no.html';
+		});
+	</script>
+</body>
+</html>
